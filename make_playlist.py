@@ -8,12 +8,12 @@ from glob import glob
 import random
 import string
 import qrcode
-from reportlab.lib.units import inch
+from reportlab.lib.units import inch, cm
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Image, Table, TableStyle
 from reportlab.lib import colors
 
-playlistdir = 'playlists'
+playlistdir = '.'
 
 def id_generator(size=3):
     chars = string.ascii_lowercase + string.digits
