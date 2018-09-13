@@ -9,6 +9,9 @@ opencv-python = "*"
 pillow = "*"
 python-musicpd = "*"
 reportlab = "*"
+qrcode = "*"
+pymaging = {git = "git://github.com/ojii/pymaging.git"}
+pymaging-png = {git = "git://github.com/ojii/pymaging-png.git"}
 
 [dev-packages]
 

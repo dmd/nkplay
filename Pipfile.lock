@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e88f62962174373b4233fb0e7affaabc2a3f4e8491355f294d050694dbd2bf35"
+            "sha256": "eb76c79883916a0feb97ac6d2a421dcb54d4ae017b11d70f30cfbcb4ebb2ac69"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -119,6 +119,14 @@
             "index": "pypi",
             "version": "==5.2.0"
         },
+        "pymaging": {
+            "git": "git://github.com/ojii/pymaging.git",
+            "ref": "596a08fce5664e58d6e8c96847393fbe987783f2"
+        },
+        "pymaging-png": {
+            "git": "git://github.com/ojii/pymaging-png.git",
+            "ref": "83d85c44e4b2342818e6c068065e031a9f81bb9f"
+        },
         "python-musicpd": {
             "hashes": [
                 "sha256:72d6cc60340659b30ff9fe21695503c7079a2f976f48aa822b730f61a1bf0f40",
@@ -127,6 +135,14 @@
             ],
             "index": "pypi",
             "version": "==0.4.2"
+        },
+        "qrcode": {
+            "hashes": [
+                "sha256:037b0db4c93f44586e37f84c3da3f763874fcac85b2974a69a98e399ac78e1bf",
+                "sha256:de4ffc15065e6ff20a551ad32b6b41264f3c75275675406ddfa8e3530d154be3"
+            ],
+            "index": "pypi",
+            "version": "==6.0"
         },
         "reportlab": {
             "hashes": [
@@ -161,6 +177,13 @@
             ],
             "index": "pypi",
             "version": "==3.5.6"
+        },
+        "six": {
+            "hashes": [
+                "sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9",
+                "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"
+            ],
+            "version": "==1.11.0"
         },
         "zbar-py": {
             "hashes": [
