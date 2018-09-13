@@ -25,7 +25,7 @@ def uniq_id():
         newid = id_generator()
     return newid
 
-def qr():
+def qr(code=None, force=False):
     qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_H,
@@ -33,8 +33,11 @@ def qr():
             border=4,
             image_factory=PymagingImage,
             )
-    
-    newid = uniq_id()
+    newid = code if code is not None else uniq_id()
+    if os.path.exists(pjoin(playlistdir, newid + '.m3u')) and not force:
+        print('Code "' + newid + '" already exists.')
+        sys.exit(1)
+
     qr.add_data(newid)
     img = qr.make_image()
 
@@ -46,13 +49,18 @@ def main():
 
     parser = argparse.ArgumentParser(description='Generate a playlist and printable QR/Album Art.')
     parser.add_argument('directory', type=str, help='Directory to find music and album art.')
+    parser.add_argument('-c', '--code', type=str, help='Code to use instead of random.')
+    parser.add_argument('-f', '--force', action='store_true', help='Overwrite if specified code already exists.')
+
     args = parser.parse_args()
 
-    newid, img = qr()
+    newid, img = qr(args.code, args.force)
 
     # playlist m3u
 
-    playlist = glob(pjoin(args.directory, '*.m??'))
+    playlist = []
+    for ext in ('*.mp3', '*.m4a', '*.aac'):
+        playlist.extend(glob(pjoin(args.directory, ext)))
 
     if len(playlist) == 0:
         print("Nothing found.")
