@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os, sys
+from tempfile import gettempdir
 from os.path import join as pjoin
 import shutil
 from glob import glob
@@ -71,9 +72,8 @@ def main():
     # qr code
 
     fn_qr = newid + '_qr.png'
-    with open(pjoin(playlistdir, fn_qr), 'wb') as p:
+    with open(pjoin(gettempdir(), fn_qr), 'wb') as p:
         img.save(p)
-    print('Wrote QR to ' + fn_qr)
 
     # album art
 
@@ -87,22 +87,18 @@ def main():
     else:
         albumart = 'default.png'
 
-    _, ext = os.path.splitext(albumart)
-    fn_aa = newid + '_aa' + ext
-    shutil.copyfile(albumart, pjoin(playlistdir, fn_aa))
-    print('Wrote album art to ' + fn_aa)
-
     # pdf
 
     fn_pdf = newid + '_print.pdf'
     doc = SimpleDocTemplate(pjoin(playlistdir, fn_pdf))
-    part_art = Image(pjoin(playlistdir, fn_aa), width=3*inch, height=3*inch)
-    part_qr = Image(pjoin(playlistdir, fn_qr), width=3*inch, height=3*inch)
-    part_table = Table(data=[[part_art], [part_qr]],)
+    part_art = Image(albumart, width=3*inch, height=3*inch)
+    part_qr = Image(pjoin(gettempdir(), fn_qr), width=3*inch, height=3*inch)
+    part_table = Table(data=[[part_art], [part_qr]])
     part_table.setStyle(TableStyle([('BOX', (0,0), (-1,-1), 0.25, colors.black, None, (1,1,1))]))
     doc.build([part_table])
-    print('Wrote printable PDF to ' + fn_pdf)
+    print('Wrote playcard to ' + fn_pdf)
 
+    os.unlink(pjoin(gettempdir(), fn_qr))
 
 if __name__ == "__main__":
     main()
