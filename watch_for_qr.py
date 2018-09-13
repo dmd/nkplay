@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-import zbar
+from time import time, sleep
 from PIL import Image
+import zbar
 import cv2
-from time import time
 import musicpd
 
 def main():
@@ -12,23 +12,32 @@ def main():
     music.update()
 
     lastdecoded = ""
+    lastdecodedtime = 0
     capture = cv2.VideoCapture(0)
     scanner = zbar.Scanner()
 
     while True:
+        sleep(0.1)  # we really don't need to do this more
         ret, frame = capture.read()
-#        cv2.imshow('Current', frame)
+        # cv2.imshow('Current', frame)
 
         image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
 
         for decoded in scanner.scan(image):
-            if decoded.data != lastdecoded: # or more than x secs passed?
-                lastdecoded = decoded.data
-                print(decoded.data.decode("utf-8"))
-                music.clear()
-                music.load(decoded.data.decode("utf-8") + ".m3u")
-                music.play()
+            ddd = decoded.data.decode("utf-8")
+            if ddd != lastdecoded or time() - lastdecodedtime > 30:
+                lastdecoded = ddd
+                lastdecodedtime = time()
 
+                try:
+                    music.clear()
+                    music.load(ddd + ".m3u")
+                    music.play()
+                    print('Now playing: ' + ddd)
+                except:
+                    print('We should print the error here too.')
+                    print('Failed to play ' + ddd)
+                    
 
 if __name__ == "__main__":
     main()
