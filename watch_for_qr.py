@@ -29,14 +29,18 @@ def main():
                 lastdecoded = ddd
                 lastdecodedtime = time()
 
-                try:
+                if ddd == 'STOP':
                     music.clear()
-                    music.load(ddd + ".m3u")
-                    music.play()
-                    print('Now playing: ' + ddd)
-                except:
-                    print('We should print the error here too.')
-                    print('Failed to play ' + ddd)
+                    print('Stopped.')
+                else:
+                    try:
+                        music.clear()
+                        music.load(ddd + ".m3u")
+                        music.play()
+                        print('Now playing: ' + ddd)
+                    except:
+                        print('We should print the error here too.')
+                        print('Failed to play ' + ddd)
                     
 
 if __name__ == "__main__":
