@@ -52,7 +52,7 @@ def main():
         sys.exit(1)
     
     fn_m3u = newid + '.m3u'
-    with open(os.path.join(playlistdir + fn_m3u), 'w') as p:
+    with open(os.path.join(playlistdir, fn_m3u), 'w') as p:
         p.write('\n'.join(playlist) + '\n')
     print('Wrote playlist to ' + fn_m3u)
     
