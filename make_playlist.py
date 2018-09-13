@@ -69,7 +69,7 @@ def main():
     if len(albumarts) > 0:
         albumart = albumarts[0]
     else:
-        albumart = 'default.jpg'
+        albumart = 'default.png'
 
     _, ext = os.path.splitext(albumart)
     fn_aa = newid + '_aa' + ext
