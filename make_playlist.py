@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 
 import os, sys
+from os.path import join as pjoin
 import shutil
 from glob import glob
 import random
 import string
 import qrcode
 from qrcode.image.pure import PymagingImage
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Image
 
 playlistdir = 'playlists'
 
@@ -16,7 +20,7 @@ def id_generator(size=3):
 
 def uniq_id():
     newid = id_generator()
-    while os.path.exists(os.path.join(playlistdir, newid + '.m3u')):
+    while os.path.exists(pjoin(playlistdir, newid + '.m3u')):
         print('exists, trying again')
         newid = id_generator()
     return newid
@@ -45,26 +49,33 @@ def main():
     args = parser.parse_args()
 
     newid, img = qr()
-    playlist = glob(os.path.join(args.directory, '*.m??'))
+
+    # playlist m3u
+
+    playlist = glob(pjoin(args.directory, '*.m??'))
 
     if len(playlist) == 0:
         print("Nothing found.")
         sys.exit(1)
-    
+
     fn_m3u = newid + '.m3u'
-    with open(os.path.join(playlistdir, fn_m3u), 'w') as p:
+    with open(pjoin(playlistdir, fn_m3u), 'w') as p:
         p.write('\n'.join(playlist) + '\n')
     print('Wrote playlist to ' + fn_m3u)
     
+    # qr code
+
     fn_qr = newid + '_qr.png'
-    with open(os.path.join(playlistdir, fn_qr), 'wb') as p:
+    with open(pjoin(playlistdir, fn_qr), 'wb') as p:
         img.save(p)
     print('Wrote QR to ' + fn_qr)
+
+    # album art
 
     exts = ('*.png', '*.PNG', '*.jpg', '*.JPG', '*.jpeg', '*.JPEG')
     albumarts = []
     for ext in exts:
-        albumarts.extend(glob(os.path.join(args.directory, ext)))
+        albumarts.extend(glob(pjoin(args.directory, ext)))
     
     if len(albumarts) > 0:
         albumart = albumarts[0]
@@ -73,8 +84,19 @@ def main():
 
     _, ext = os.path.splitext(albumart)
     fn_aa = newid + '_aa' + ext
-    shutil.copyfile(albumart, os.path.join(playlistdir, fn_aa))
+    shutil.copyfile(albumart, pjoin(playlistdir, fn_aa))
     print('Wrote album art to ' + fn_aa)
+
+    # pdf
+
+    fn_pdf = newid + '_print.pdf'
+    doc = SimpleDocTemplate(pjoin(playlistdir, fn_pdf))
+    parts = []
+    parts.append(Image(pjoin(playlistdir, fn_aa), width=3*inch, height=3*inch))
+    parts.append(Image(pjoin(playlistdir, fn_qr), width=3*inch, height=3*inch))
+    doc.build(parts)
+    print('Wrote printable PDF to ' + fn_pdf)
+
 
 if __name__ == "__main__":
     main()
