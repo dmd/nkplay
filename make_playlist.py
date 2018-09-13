@@ -10,7 +10,8 @@ import qrcode
 from qrcode.image.pure import PymagingImage
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Image
+from reportlab.platypus import SimpleDocTemplate, Image, Table, TableStyle
+from reportlab.lib import colors
 
 playlistdir = 'playlists'
 
@@ -29,8 +30,6 @@ def qr(code=None, force=False):
     qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_H,
-            box_size=30,
-            border=4,
             image_factory=PymagingImage,
             )
     newid = code if code is not None else uniq_id()
@@ -99,10 +98,11 @@ def main():
 
     fn_pdf = newid + '_print.pdf'
     doc = SimpleDocTemplate(pjoin(playlistdir, fn_pdf))
-    parts = []
-    parts.append(Image(pjoin(playlistdir, fn_aa), width=3*inch, height=3*inch))
-    parts.append(Image(pjoin(playlistdir, fn_qr), width=3*inch, height=3*inch))
-    doc.build(parts)
+    part_art = Image(pjoin(playlistdir, fn_aa), width=3*inch, height=3*inch)
+    part_qr = Image(pjoin(playlistdir, fn_qr), width=3*inch, height=3*inch)
+    part_table = Table(data=[[part_art], [part_qr]],)
+    part_table.setStyle(TableStyle([('BOX', (0,0), (-1,-1), 0.25, colors.black, None, (1,1,1))]))
+    doc.build([part_table])
     print('Wrote printable PDF to ' + fn_pdf)
 
 
