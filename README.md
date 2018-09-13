@@ -6,5 +6,5 @@ Includes a tool to generate printable cards with album art and QR code.
 
 # Installation
 
-Use pipenv.
+Use [pipenv](https://pipenv.readthedocs.io/en/latest/basics/).
 
