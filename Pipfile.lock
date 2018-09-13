@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "eb76c79883916a0feb97ac6d2a421dcb54d4ae017b11d70f30cfbcb4ebb2ac69"
+            "sha256": "72c68bf76318eee9df8fc01ee675275c714a7610b58d2221171ecd787ad72a65"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -118,14 +118,6 @@
             ],
             "index": "pypi",
             "version": "==5.2.0"
-        },
-        "pymaging": {
-            "git": "git://github.com/ojii/pymaging.git",
-            "ref": "596a08fce5664e58d6e8c96847393fbe987783f2"
-        },
-        "pymaging-png": {
-            "git": "git://github.com/ojii/pymaging-png.git",
-            "ref": "83d85c44e4b2342818e6c068065e031a9f81bb9f"
         },
         "python-musicpd": {
             "hashes": [

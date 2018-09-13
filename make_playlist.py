@@ -7,7 +7,6 @@ from glob import glob
 import random
 import string
 import qrcode
-from qrcode.image.pure import PymagingImage
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Image, Table, TableStyle
@@ -30,7 +29,6 @@ def qr(code=None, force=False):
     qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_H,
-            image_factory=PymagingImage,
             )
     newid = code if code is not None else uniq_id()
     if os.path.exists(pjoin(playlistdir, newid + '.m3u')) and not force:
