@@ -49,6 +49,7 @@ def main():
     parser.add_argument('directory', type=str, help='Directory to find music and album art.')
     parser.add_argument('-c', '--code', type=str, help='Code to use instead of random.')
     parser.add_argument('-f', '--force', action='store_true', help='Overwrite if specified code already exists.')
+    parser.add_argument('-s', '--size', choices=['3by3', 'creditcard'], default='creditcard', help='Card size')
 
     args = parser.parse_args()
 
@@ -91,11 +92,25 @@ def main():
 
     fn_pdf = newid + '_print.pdf'
     doc = SimpleDocTemplate(pjoin(playlistdir, fn_pdf))
-    part_art = Image(albumart, width=3*inch, height=3*inch)
-    part_qr = Image(pjoin(gettempdir(), fn_qr), width=3*inch, height=3*inch)
-    part_table = Table(data=[[part_art], [part_qr]])
-    part_table.setStyle(TableStyle([('BOX', (0,0), (-1,-1), 0.25, colors.black, None, (1,1,1))]))
-    doc.build([part_table])
+    if args.size == '3by3':
+        part_art = Image(albumart, width=3*inch, height=3*inch)
+        part_qr = Image(pjoin(gettempdir(), fn_qr), width=3*inch, height=3*inch)
+        part_table = Table([[part_art], [part_qr]])
+        part_table.setStyle(TableStyle([('BOX', (0,0), (-1,-1), 0.25, colors.black, None, (1,1,1))]))
+        doc.build([part_table])
+    elif args.size == 'creditcard':
+        colwidths = [2.125*inch, 1.25*inch]
+        rowheights = [2.125*inch, 2.125*inch]
+        part_art = Image(albumart, width=2*inch, height=2*inch)
+        part_qr = Image(pjoin(gettempdir(), fn_qr), width=2*inch, height=2*inch)
+        part_table = Table([[part_art, ],[part_qr, newid]], colwidths, rowheights)
+        part_table.setStyle(TableStyle([
+            ('BOX', (0,0), (-1,-1), 0.25, colors.black, None, (1,1,1)),
+            ('LINEBELOW', (0,0), (-1,0), 0.25, colors.black, None, (1,1,1)),
+            ('ALIGN', (1,1), (1,1), 'CENTER'),
+            ('VALIGN', (1,1), (1,1), 'MIDDLE'),
+]))
+        doc.build([part_table])
     print('Wrote playcard to ' + fn_pdf)
 
     os.unlink(pjoin(gettempdir(), fn_qr))
