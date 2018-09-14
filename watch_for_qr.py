@@ -6,6 +6,7 @@ import zbar
 import cv2
 import musicpd
 
+
 def main():
     music = musicpd.MPDClient()
     music.connect('localhost', 6600)
@@ -41,7 +42,7 @@ def main():
                     except:
                         print('We should print the error here too.')
                         print('Failed to play ' + ddd)
-                    
+
 
 if __name__ == "__main__":
     main()
