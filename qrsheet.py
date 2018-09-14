@@ -55,9 +55,9 @@ def main():
     images = []
     labelnum = 0
 
-    for x_pos in (0.63, 3.25, 5.88):
-        for y_pos in (0.63, 3.21, 5.79, 8.38):
-            c.drawImage(pjoin(tmpdir, codes[labelnum] + '_qr.png'), x_pos*inch, y_pos*inch, width=2*inch, height=2*inch)
+    for y_pos in (0.63, 3.21, 5.79, 8.38):
+        for x_pos in (0.63, 3.25, 5.88):
+            c.drawImage(pjoin(tmpdir, codes[labelnum] + '_qr.png'), x_pos*inch, (9 - y_pos)*inch, width=2*inch, height=2*inch)
             os.unlink(pjoin(tmpdir, codes[labelnum] + '_qr.png'))
             labelnum += 1
 
