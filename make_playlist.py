@@ -91,7 +91,7 @@ def main():
     # pdf
 
     fn_pdf = newid + '_print.pdf'
-    doc = SimpleDocTemplate(pjoin(playlistdir, fn_pdf))
+    doc = SimpleDocTemplate(pjoin(playlistdir, fn_pdf), pagesize=letter)
     if args.size == '3by3':
         part_art = Image(albumart, width=3*inch, height=3*inch)
         part_qr = Image(pjoin(gettempdir(), fn_qr), width=3*inch, height=3*inch)
