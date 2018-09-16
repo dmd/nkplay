@@ -27,7 +27,7 @@ def main():
         for decoded in scanner.scan(image):
             ddd = decoded.data.decode("utf-8")
 
-            if ddd != lastdecoded
+            if ddd != lastdecoded:
                 lastdecoded = ddd
 
                 if ddd == 'STOP':
