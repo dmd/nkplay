@@ -16,12 +16,13 @@ def main():
     lastdecoded = ""
     lastdecodedtime = 0
     camera = picamera.PiCamera()
+    camera.resolution = (640, 480)
     scanner = zbar.Scanner()
 
     while True:
         sleep(0.1)  # we really don't need to do this more
         with picamera.array.PiRGBArray(camera) as stream:
-            camera.capture(stream, format='bgr')
+            camera.capture(stream, format='bgr', use_video_port=True)
             frame = stream.array
 
         image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
