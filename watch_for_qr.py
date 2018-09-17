@@ -28,24 +28,25 @@ def main():
         image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
 
         print(". ", end=" ", flush=True)
-        ddd = scanner.scan(image)[0].data.decode("utf-8")
+        for decoded in scanner.scan(image):
+            ddd = decoded.data.decode("utf-8")
 
-        if ddd != lastdecoded:
-            lastdecoded = ddd
+            if ddd != lastdecoded:
+                lastdecoded = ddd
 
-            if ddd == 'STOP':
-                music.clear()
-                print('Stopped.')
-            else:
-                try:
+                if ddd == 'STOP':
                     music.clear()
-                    music.load(ddd + ".m3u")
-                    music.consume(1)
-                    music.play()
-                    print('Now playing: ' + ddd)
-                except:
-                    print('We should print the error here too.')
-                    print('Failed to play ' + ddd)
+                    print('Stopped.')
+                else:
+                    try:
+                        music.clear()
+                        music.load(ddd + ".m3u")
+                        music.consume(1)
+                        music.play()
+                        print('Now playing: ' + ddd)
+                    except:
+                        print('We should print the error here too.')
+                        print('Failed to play ' + ddd)
 
 
 if __name__ == "__main__":
