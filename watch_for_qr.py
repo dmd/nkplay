@@ -29,6 +29,7 @@ def main():
 
         print(". ", end=" ", flush=True)
         for decoded in scanner.scan(image):
+            # there should be 0 or 1 in the list
             ddd = decoded.data.decode("utf-8")
 
             if ddd != lastdecoded:
