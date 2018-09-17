@@ -1,2 +1,2 @@
 #!/bin/bash
-find -type f "$2" > $1.m3u
+find "$2" -type f > $1.m3u
