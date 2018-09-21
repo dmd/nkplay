@@ -33,24 +33,24 @@ def main():
     while True:
         code = get_command()
 
-        if code == 'STOP':
-            print('STOP')
-            music.clear()
-        elif code == '-':
-            print('previous')
-            music.previous()
-        elif code == '+':
-            print('next')
-            music.next()
-        else:
-            try:
+        try:
+            if code == 'STOP':
+                print('STOP')
+                music.clear()
+            elif code == '-':
+                print('previous')
+                music.previous()
+            elif code == '+':
+                print('next')
+                music.next()
+            else:
                 music.clear()
                 music.load(code + '.m3u')
                 music.consume(1)
                 music.play()
                 print('Now playing: ' + code)
-            except:
-                print('Failed to play:' + code)
+        except:
+            print('got an error')
 
 
 if __name__ == '__main__':
