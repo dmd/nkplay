@@ -18,6 +18,8 @@ def get_command():
             return c
         if c in [str(x) for x in range(10)]:
             command += c
+            if command == '00':
+                return '00'
         else:
             print('garbage received, clearing command')
             command = ''
