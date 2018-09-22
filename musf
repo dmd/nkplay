@@ -1,2 +1,19 @@
 #!/bin/bash
-find "$2" -type f > $1.m3u
+if [ ! $# -eq 3 ]
+then
+    echo "Usage: $(basename $0) FILE_OR_DIRECTORY   NUMERIC_ID   LABEL"
+    exit 1
+fi
+
+FILEPATH=$1
+NID=$2
+LABEL=$3
+
+if [ -e $NID.m3u ]
+then
+    echo "id $NID already exists"
+    exit 1
+fi
+
+find "$FILEPATH" -type f > $NID.m3u
+echo -e "$NID\t$LABEL" >> registry.txt
