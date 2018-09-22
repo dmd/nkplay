@@ -55,4 +55,5 @@ def main():
 
 if __name__ == '__main__':
     # this should be called from a script which reruns it on failure.
+    print("listening for song ids...")
     main()
