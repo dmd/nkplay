@@ -8,3 +8,18 @@ Includes a tool to generate printable cards with album art and QR code. Also inc
 
 Use [pipenv](https://pipenv.readthedocs.io/en/latest/basics/).
 
+# for nkplayer
+
+I'm just having it start on boot. Poor man's daemon - not even dealing with systemd, having the pi boot without password straight to terminal (no X), and in `.profile`:
+
+
+```
+if [[ $(tty) == '/dev/tty1' ]]; then
+   sudo kbdrate -d 9001 # so mashing key doesn't hurt
+   mpd
+   cd qrplay
+   while true; do
+       ./nkplay.py
+   done
+fi
+```

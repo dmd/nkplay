@@ -28,6 +28,7 @@ def get_command():
 def main():
     music = musicpd.MPDClient()
     music.connect('localhost', 6600)
+    music.volume(100)
     music.update()
 
     while True:
