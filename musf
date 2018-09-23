@@ -16,4 +16,5 @@ then
 fi
 
 find "$FILEPATH" -type f > $NID.m3u
-echo -e "$NID\t$LABEL" >> registry.txt
+echo "You must now update registry.docx !!"
+
