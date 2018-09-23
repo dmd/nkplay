@@ -2,6 +2,7 @@
 
 from time import time
 from getch import getch
+from subprocess import call
 import musicpd
 
 # this version is for use with a numeric keypad entry
@@ -38,6 +39,8 @@ def main():
             if code == 'STOP':
                 print('STOP')
                 music.clear()
+            elif code == '8686':
+                call('/sbin/poweroff')
             elif code == '-':
                 print('previous')
                 music.previous()
