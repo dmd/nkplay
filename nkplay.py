@@ -31,9 +31,11 @@ def main():
     music.connect('localhost', 6600)
     music.volume(100)
     music.update()
+    music.disconnect()
 
     while True:
         code = get_command()
+        music.connect('localhost', 6600)
 
         try:
             if code == 'STOP':
@@ -53,8 +55,9 @@ def main():
                 music.consume(1)
                 music.play()
                 print('Now playing: ' + code)
-        except:
-            print('got an error')
+        except Exception as e:
+            print('got an error: ' + str(e))
+        music.disconnect()
 
 
 if __name__ == '__main__':
