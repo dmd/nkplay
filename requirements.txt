@@ -4,3 +4,4 @@ pillow
 python-musicpd
 reportlab
 qrcode
+getch
