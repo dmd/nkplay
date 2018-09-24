@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from time import time
-from getch import getch
+from getch import getche
 from subprocess import call
 import musicpd
 
@@ -12,7 +12,7 @@ import musicpd
 def get_command():
     command = ''
     while True:
-        c = getch()
+        c = getche()
         if c == '\n':
             return 'STOP' if command == '' else command
         if c in ['+', '-']:
