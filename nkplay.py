@@ -27,6 +27,7 @@ def get_command():
 def main():
     music = musicpd.MPDClient()
     music.connect('localhost', 6600)
+    music.replay_gain_mode('track')
     music.volume(100)
     music.update()
     music.disconnect()
