@@ -51,6 +51,10 @@ def main():
                 music.clear()
                 music.load(code + '.m3u')
                 music.consume(1)
+                if code == '999':
+                    music.random(1)
+                else:
+                    music.random(0)
                 music.play()
                 print('Now playing: ' + code)
         except Exception as e:
