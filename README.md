@@ -15,6 +15,7 @@ I'm just having it start on boot. Poor man's daemon - not even dealing with syst
 
 ```
 if [[ $(tty) == '/dev/tty1' ]]; then
+   setleds -D +num
    sudo kbdrate -d 9001 # so mashing key doesn't hurt
    mpd
    cd qrplay
