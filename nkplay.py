@@ -3,11 +3,23 @@
 from time import time
 from getch import getche
 from subprocess import call
+import signal
 import musicpd
 
 # this version is for use with a numeric keypad entry
 # because the camera isn't working for me in low light
 # of course this means playlists can only have numeric names.
+
+MAXPLAYTIME = 3600
+
+def sleep_handler(signum, frame):
+    music = musicpd.MPDClient()
+    music.connect('localhost', 6600)
+    music.clear()
+    print('going to sleep')
+    music.disconnect()
+
+signal.signal(signal.SIGALRM, sleep_handler)
 
 def get_command():
     command = ''
@@ -33,7 +45,12 @@ def main():
     music.disconnect()
 
     while True:
-        code = get_command()
+        try:
+            code = get_command()
+        except OverflowError:
+            # because alarm fired
+            continue
+
         music.connect('localhost', 6600)
 
         try:
@@ -57,6 +74,7 @@ def main():
                 else:
                     music.random(0)
                 music.play()
+                signal.alarm(MAXPLAYTIME)
                 print('Now playing: ' + code)
         except Exception as e:
             print('got an error: ' + str(e))
