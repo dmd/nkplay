@@ -32,7 +32,7 @@ def get_command():
         if c in [str(x) for x in range(10)]:
             command += c
         else:
-            print('garbage received, clearing command')
+            print('garbage received: "' + str(c) + '", clearing command')
             command = ''
 
 
