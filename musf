@@ -14,6 +14,6 @@ then
     exit 1
 fi
 
-find "$FILEPATH" -type f > $NID.m3u
+find "$FILEPATH" -type f |sort > $NID.m3u
 echo "You must now update registry.docx !!"
 
