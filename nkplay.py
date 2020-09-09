@@ -68,7 +68,8 @@ def main():
             else:
                 music.clear()
                 music.load(code + '.m3u')
-                music.consume(1)
+                music.consume(0)
+                music.repeat(0)
                 if code == '999':
                     music.random(1)
                 else:

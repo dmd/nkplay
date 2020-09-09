@@ -15,5 +15,5 @@ then
 fi
 
 find "$FILEPATH" -type f |sort > $NID.m3u
-echo "You must now update registry.docx !!"
+echo "You must now update musicland.xlsx !!"
 
