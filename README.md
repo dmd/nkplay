@@ -13,7 +13,7 @@ if [[ $(tty) == '/dev/tty1' ]]; then
    setleds -D +num
    sudo kbdrate -d 9001 # so mashing key doesn't hurt
    mpd
-   cd qrplay
+   cd nkplay
    while true; do
        ./nkplay.py
    done
