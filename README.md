@@ -1,16 +1,11 @@
-# QR Music Player
+# NumKey Music Player
 
-Lets you play music (a playlist, using [musicpd](https://www.musicpd.org/)) by showing the camera a QR code with the playlist name.
+Lets you play music (a playlist, using [musicpd](https://www.musicpd.org/)) by typing a number on a keypad, like a jukebox.
 
-Includes a tool to generate printable cards with album art and QR code. Also includes (because I decided this would be easier) a tool to generate a set of 12 random (or not random) QR codes on an Avery 22816 sheet, which are the right size to stick onto a credit-card sized token.
+I have this installed on RPIs in my kids' rooms, with no screen, and just a numeric keypad and speaker attached.
 
-# Installation
 
-Use [pipenv](https://pipenv.readthedocs.io/en/latest/basics/).
-
-# for nkplayer
-
-I'm just having it start on boot. Poor man's daemon - not even dealing with systemd, having the pi boot without password straight to terminal (no X), and in `.profile`:
+I just have it start on boot. Poor man's daemon - not even dealing with systemd, having the pi boot without password straight to terminal (no X), and in `.profile`:
 
 
 ```

@@ -6,9 +6,6 @@ from subprocess import call
 import signal
 import musicpd
 
-# this version is for use with a numeric keypad entry
-# because the camera isn't working for me in low light
-# of course this means playlists can only have numeric names.
 
 MAXPLAYTIME = 3600
 

@@ -1,7 +1,2 @@
-zbar-py
-opencv-python
-pillow
 python-musicpd
-reportlab
-qrcode
 getch
