@@ -23,7 +23,7 @@ fi
 ## notes to self for getting it working in our house
 
 ```
-sudo pip install python-musicpd getch
+sudo pip install python-musicpd getch mpd mpc
 sudo apt install shairport-sync  # if you want airplay support too
 ```
 
