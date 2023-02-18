@@ -19,3 +19,26 @@ if [[ $(tty) == '/dev/tty1' ]]; then
    done
 fi
 ```
+
+## notes to self for getting it working in our house
+
+```
+sudo pip install python-musicpd getch
+sudo apt install shairport-sync  # if you want airplay support too
+```
+
+`/etc/mpd.conf` edits:
+
+```
+music_directory         "/home/dmd/musicplayer"
+playlist_directory              "/home/dmd/musicplayer"
+
+audio_output {
+        type            "alsa"
+        name            "My ALSA Device"
+        mixer_type      "software"      # optional
+        mixer_device    "default"       # optional
+        mixer_control   "PCM"           # optional
+}
+
+```
