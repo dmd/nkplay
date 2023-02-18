@@ -23,9 +23,11 @@ fi
 ## notes to self for getting it working in our house
 
 ```
+sudo apt install mpd mpc python3-pip
 sudo pip install python-musicpd getch 
-sudo apt install mpd mpc
+
 sudo apt install shairport-sync  # if you want airplay support too
+
 ```
 
 `/etc/mpd.conf` edits:
