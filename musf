@@ -14,6 +14,4 @@ then
     exit 1
 fi
 
-find "$FILEPATH" -type f |sort > $NID.m3u
-echo "You must now update musicland.xlsx !!"
-
+find "$FILEPATH" -type f -o -type l |sort > $NID.m3u
