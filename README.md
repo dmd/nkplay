@@ -1,6 +1,6 @@
 # NumKey Music Player
 
-Lets you play music (a playlist, using [musicpd](https://www.musicpd.org/)) by typing a number on a [standalone numeric keypad](https://www.jellycomb.com/products/usb-number-pad-n001-p798345-html?variant=39407100428378), like a jukebox.
+Lets you play music (a playlist, using [musicpd](https://www.musicpd.org/)) by typing a number on a [standalone numeric keypad](https://www.amazon.com/Numeric-Keyboard-Computer-Notebook-Letters/dp/B0BNPVMQVT), like a jukebox.
 
 I have this installed on RPIs in my kids' rooms, with no screen, and just a numeric keypad and speaker attached.
 
