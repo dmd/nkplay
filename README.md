@@ -34,7 +34,7 @@ sudo apt install shairport-sync  # optional if you want to be able to airplay to
 
 ```
 music_directory         "/home/dmd/musicplayer"
-playlist_directory              "/home/dmd/musicplayer"
+playlist_directory      "/home/dmd/musicplayer"
 
 audio_output {
         type            "alsa"
