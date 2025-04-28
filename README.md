@@ -26,7 +26,7 @@ fi
 sudo apt install mpd mpc python3-pip
 sudo pip install python-musicpd getch 
 
-sudo apt install shairport-sync  # if you want airplay support too
+sudo apt install shairport-sync  # optional if you want to be able to airplay to it as well
 
 ```
 
