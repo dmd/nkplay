@@ -2,7 +2,7 @@
 
 Lets you play music (a playlist, using [musicpd](https://www.musicpd.org/)) by typing a number on a [standalone numeric keypad](https://www.amazon.com/Numeric-Keyboard-Computer-Notebook-Letters/dp/B0BNPVMQVT), like a jukebox.
 
-Newer projects like [Yoto](https://yotoplay.com/), [Yaydio](https://github.com/JakesMD/Yaydio), [Roomie](https://github.com/mlacher/Roomie_Music_Player), and [TagTuner](https://luka6000.github.io/TagTuner/) are much fancier and polished, but this has done the job every single evening since 2015 with zero problems.
+Newer projects like [Yoto](https://yotoplay.com/), [Yaydio](https://github.com/JakesMD/Yaydio), [Roomie](https://github.com/mlacher/Roomie_Music_Player), and [TagTuner](https://luka6000.github.io/TagTuner/) are more polished, but this has done the job every single evening since 2015 with zero problems.
 
 I have this installed on RPIs in my kids' rooms, with no screen, and just a numeric keypad and speaker attached.
 
