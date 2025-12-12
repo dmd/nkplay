@@ -54,6 +54,8 @@ def main():
             if code == 'STOP':
                 print('STOP')
                 music.clear()
+                music.update()
+                print('Database updated')
             elif code == '8686':
                 call('/sbin/poweroff')
             elif code == '-':
