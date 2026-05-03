@@ -2,12 +2,14 @@
 
 from time import time
 from getch import getche
-from subprocess import call
+from socket import gethostname
+from subprocess import call, Popen, DEVNULL
 import signal
 import musicpd
 
 
 MAXPLAYTIME = 3600
+LOG_URL = 'https://example.com/cgi-bin/nkplay-log.py'
 
 def sleep_handler(signum, frame):
     music = musicpd.MPDClient()
@@ -76,6 +78,9 @@ def main():
                 music.play()
                 signal.alarm(MAXPLAYTIME)
                 print('Now playing: ' + code)
+                Popen(['curl', '-s', '--max-time', '5',
+                       LOG_URL + '?p=' + code + '&h=' + gethostname()],
+                      stdout=DEVNULL, stderr=DEVNULL)
         except Exception as e:
             print('got an error: ' + str(e))
         music.disconnect()
