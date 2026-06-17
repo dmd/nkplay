@@ -118,7 +118,9 @@ def main():
         per_pid_host[p][h] += 1
 
     per_day = Counter(dt.date() for dt, _, _ in rows)
-    per_hour = Counter(dt.hour for dt, _, _ in rows)
+    per_hour_host = defaultdict(Counter)  # host -> hour -> count
+    for dt, _, h in rows:
+        per_hour_host[h][dt.hour] += 1
 
     first_dt = rows[0][0] if rows else None
     last_dt = rows[-1][0] if rows else None
@@ -246,23 +248,39 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
         w(f'<div class="barrow">{track}</div>')
     w('</div>')
 
-    # time of day -- bars and tick labels are separate rows so the labels
-    # never push individual bars off the baseline
-    w('<h2>Time of day</h2><div class="panel"><div class="hours">')
-    hourmax = max(per_hour.values()) if per_hour else 1
+    # time of day -- one chart per room so the different bedtime
+    # distributions are visible side by side. Bars and tick labels are
+    # separate rows so labels never push individual bars off the baseline.
+    # All rooms share one max so heights stay comparable.
     disps = []
     for hr in range(24):
-        c = per_hour.get(hr, 0)
-        pct = c / hourmax * 100
-        disp = '12a' if hr == 0 else ('12p' if hr == 12 else
-               (f'{hr}a' if hr < 12 else f'{hr-12}p'))
-        disps.append(disp)
-        w(f'<div class="hcol" title="{disp}: {c}">'
-          f'<div class="hbar" style="height:{pct:.0f}%"></div></div>')
-    w('</div><div class="hticks">')
-    for hr in range(24):
-        w(f'<div class="htick">{disps[hr] if hr % 3 == 0 else ""}</div>')
-    w('</div></div>')
+        disps.append('12a' if hr == 0 else ('12p' if hr == 12 else
+                     (f'{hr}a' if hr < 12 else f'{hr-12}p')))
+    hourmax = max((c for hc in per_hour_host.values() for c in hc.values()),
+                  default=1)
+    w('<h2>Time of day</h2><div class="panel">')
+    for i, h in enumerate(hosts):
+        hc = per_hour_host[h]
+        color = host_color[h]
+        if i:
+            w('<div style="height:18px"></div>')
+        w(f'<div style="font-weight:600;margin-bottom:6px">'
+          f'<span class="dot" style="background:{color}"></span>'
+          f'{esc(pretty_host(h))}</div>')
+        w('<div class="hours">')
+        for hr in range(24):
+            c = hc.get(hr, 0)
+            pct = c / hourmax * 100
+            # an hour with no plays draws no bar at all, not a min-height stub
+            fill = ('' if c == 0 else
+                    f'<div class="hbar" style="height:{pct:.0f}%;'
+                    f'background:{color}"></div>')
+            w(f'<div class="hcol" title="{disps[hr]}: {c}">{fill}</div>')
+        w('</div><div class="hticks">')
+        for hr in range(24):
+            w(f'<div class="htick">{disps[hr] if hr % 3 == 0 else ""}</div>')
+        w('</div>')
+    w('</div>')
 
     # recent plays: one row per day, a column per room, numbers in each cell
     day_plays = defaultdict(lambda: defaultdict(list))  # date -> host -> [pid...]
