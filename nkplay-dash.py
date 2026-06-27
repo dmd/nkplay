@@ -50,7 +50,30 @@ def load_rows():
     except FileNotFoundError:
         pass
     rows.sort(key=lambda x: x[0])
+    rows = collapse_mind_changes(rows)
+    rows.sort(key=lambda x: x[0])
     return dedupe(rows)
+
+
+# A burst of plays in the same room each less than this apart means the
+# person was flipping through choices ("changed their mind"); keep only the
+# final pick of the burst.
+MIND_CHANGE_WINDOW = timedelta(minutes=1)
+
+
+def collapse_mind_changes(rows):
+    out = []
+    idx = {}        # host -> index in out of current burst's kept play
+    last = {}       # host -> time of previous play seen (kept or dropped)
+    for dt, pid, host in rows:
+        prev = last.get(host)
+        if prev is not None and dt - prev < MIND_CHANGE_WINDOW:
+            out[idx[host]] = (dt, pid, host)
+        else:
+            idx[host] = len(out)
+            out.append((dt, pid, host))
+        last[host] = dt
+    return out
 
 
 # Collapse rapid repeats: re-selecting the same playlist in the same room
